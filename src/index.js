@@ -1,3 +1,10 @@
+const formatter = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'Asia/Shanghai', // UTC+8
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
 export default {
   async fetch(request, env) {
     const { method } = request;
@@ -27,12 +34,6 @@ async function handlePost(request, env) {
       return new Response("Invalid JSON payload: 'time' field not found or is 0.", { status: 400 });
     }
 
-    const formatter = new Intl.DateTimeFormat('en-CA', {
-      timeZone: 'Asia/Shanghai', // UTC+8
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    });
     const day = formatter.format(new Date(maxTime));
 
     const { success } = await env.DB.prepare(
@@ -57,10 +58,7 @@ async function handleGet(request, env) {
 
   if (!day) {
     // If day is blank, query for today's data in UTC+8
-    const now = new Date();
-    const utc8Offset = 8 * 60 * 60 * 1000;
-    const utc8Now = new Date(now.getTime() + utc8Offset);
-    day = utc8Now.toISOString().slice(0, 10);
+    day = formatter.format(new Date());
   }
 
   try {
