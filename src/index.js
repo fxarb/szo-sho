@@ -48,10 +48,14 @@ async function handlePost(request, env) {
 
 async function handleGet(request, env) {
   const { searchParams } = new URL(request.url);
-  const day = searchParams.get("day");
+  let day = searchParams.get("day");
 
   if (!day) {
-    return new Response("'day' query parameter is required.", { status: 400 });
+    // If day is blank, query for today's data in UTC+8
+    const now = new Date();
+    const utc8Offset = 8 * 60 * 60 * 1000;
+    const utc8Now = new Date(now.getTime() + utc8Offset);
+    day = utc8Now.toISOString().slice(0, 10);
   }
 
   try {
