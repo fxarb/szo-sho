@@ -7,4 +7,4 @@ binding = "DB" # This is the binding name used in the worker script (env.DB)
 database_name = "gflow"
 # IMPORTANT: You need to replace the following line with your actual D1 database ID.
 # You can find the ID by running the command: `npx wrangler d1 info gflow`
-database_id = "your-database-id-goes-here"
+database_id = "3249909b-df30-4ddf-81a8-a6f99204c607"
