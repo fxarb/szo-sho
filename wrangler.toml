@@ -1,0 +1,10 @@
+name = "gflow-worker"
+main = "src/index.js"
+compatibility_date = "2023-10-30"
+
+[[d1_databases]]
+binding = "DB" # This is the binding name used in the worker script (env.DB)
+database_name = "gflow"
+# IMPORTANT: You need to replace the following line with your actual D1 database ID.
+# You can find the ID by running the command: `npx wrangler d1 info gflow`
+database_id = "your-database-id-goes-here"
