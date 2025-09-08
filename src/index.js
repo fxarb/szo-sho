@@ -27,8 +27,13 @@ async function handlePost(request, env) {
       return new Response("Invalid JSON payload: 'time' field not found or is 0.", { status: 400 });
     }
 
-    const date = new Date(maxTime);
-    const day = date.toISOString().slice(0, 10);
+    const formatter = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Shanghai', // UTC+8
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+    const day = formatter.format(new Date(maxTime));
 
     const { success } = await env.DB.prepare(
       "INSERT INTO full_tick (day, ticks) VALUES (?, ?)"
