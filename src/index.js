@@ -37,7 +37,8 @@ async function handlePost(request, env) {
     const day = formatter.format(new Date(maxTime));
 
     const { success } = await env.DB.prepare(
-      "INSERT INTO full_tick (day, ticks) VALUES (?, ?)"
+      `INSERT INTO full_tick (day, ticks) VALUES (?, ?)
+       ON CONFLICT(day) DO UPDATE SET ticks=excluded.ticks`
     )
       .bind(day, ticks)
       .run();
