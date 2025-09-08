@@ -60,3 +60,5 @@ curl "<YOUR_WORKER_URL>?day=2025-09-08"
 ```
 
 Replace `<YOUR_WORKER_URL>` with your worker's URL and adjust the `day` parameter as needed. This will return the full JSON payload that was saved for that day.
+
+If the `day` parameter is not provided, the worker will automatically query for the current day's data based on the UTC+8 timezone.
