@@ -34,6 +34,7 @@ async function handlePost(request, env) {
       return new Response("Invalid JSON payload: 'time' field not found or is 0.", { status: 400 });
     }
 
+
     const day = formatter.format(new Date(maxTime));
 
     const { success } = await env.DB.prepare(
